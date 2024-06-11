@@ -6,6 +6,7 @@ import IssueStatusBadge from "../IssueStatusBadge";
 import delay from "delay";
 import { notFound } from "next/navigation";
 import { Button, Card, Flex, Heading, Text } from "@radix-ui/themes";
+import Markdown from "react-markdown";
 
 // Define the Issue interface
 interface Issue {
@@ -44,14 +45,16 @@ const IssueDetailPage = async ({ params }: { params: { id: string } }) => {
       <div>
         {issue ? (
           <div className="space-y-3 max-w-xl mx-auto">
-            <Flex justify='between' px='1'>
+            <Flex justify="between" px="1">
               <Heading>{issue.title}</Heading>
-              <Flex gap='3'>
+              <Flex gap="3">
                 <IssueStatusBadge status={issue.status} />
                 <Text color="gray">{issue.createdAt.toDateString()}</Text>
               </Flex>
             </Flex>
-            <Card variant="surface">{issue.description}</Card>
+            <Card className="prose" variant="surface">
+              <Markdown>{issue.description}</Markdown>
+            </Card>
           </div>
         ) : (
           <p>Issue not found.</p>
