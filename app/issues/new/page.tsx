@@ -44,7 +44,7 @@ const NewIssuePage = async () => {
 
   return (
     <div className="max-w-xl mx-auto">
-      <Heading as="h1" size="8" className="text-zinc-600 mb-5">Create a New Issue</Heading>
+      <Heading as="h1" size="7" className="text-zinc-700 mb-5">Create a New Issue</Heading>
       {error && (
         <Callout.Root color="red" role="alert" className="mb-3">
           <Callout.Icon>
