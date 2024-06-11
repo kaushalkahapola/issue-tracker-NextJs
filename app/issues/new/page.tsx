@@ -13,11 +13,12 @@ import { issueSchema } from "@/app/validationSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import ErrorMessage from "@/app/components/ErrorMessage";
 import Spinner from "@/app/components/Spinner";
+import delay from 'delay'
 
 
 type Issue = z.infer<typeof issueSchema>;
 
-const NewIssuePage = () => {
+const NewIssuePage = async () => {
   const {
     register,
     control,
@@ -42,6 +43,7 @@ const NewIssuePage = () => {
     }
   };
 
+  await delay(5000)
   return (
     <div className="max-w-xl mx-auto">
       <Heading as="h1" size="8" className="text-zinc-600 mb-5">Create a New Issue</Heading>
