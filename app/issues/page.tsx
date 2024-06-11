@@ -1,10 +1,8 @@
-import { Button, Table } from "@radix-ui/themes";
-import Link from "../components/Link";
-import React from "react";
-import axios from "axios";
 import { Status } from "@prisma/client";
+import { Button, Table } from "@radix-ui/themes";
+import axios from "axios";
+import Link from "../components/Link";
 import IssueStatusBadge from "./IssueStatusBadge";
-import delay from "delay";
 
 // Define the Issue interface
 interface Issue {
@@ -26,7 +24,6 @@ const IssuePage = async () => {
   } catch (error) {
     console.error(error);
   }
-  await delay(2000);
 
   return (
     <div className="max-w-3xl mx-auto">

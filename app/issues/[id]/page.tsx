@@ -1,12 +1,9 @@
-import Link from "next/link";
-import React from "react";
-import axios from "axios";
 import { Status } from "@prisma/client";
-import IssueStatusBadge from "../IssueStatusBadge";
-import delay from "delay";
+import { Card, Flex, Heading, Text } from "@radix-ui/themes";
+import axios from "axios";
 import { notFound } from "next/navigation";
-import { Button, Card, Flex, Heading, Text } from "@radix-ui/themes";
 import Markdown from "react-markdown";
+import IssueStatusBadge from "../IssueStatusBadge";
 
 // Define the Issue interface
 interface Issue {
@@ -33,7 +30,7 @@ const IssueDetailPage = async ({ params }: { params: { id: string } }) => {
     console.error(error);
     notFound();
   }
-  await delay(2000);
+
 
   return (
     <div>
