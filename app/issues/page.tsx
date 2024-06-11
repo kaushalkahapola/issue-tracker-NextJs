@@ -6,7 +6,7 @@ const IssuePage = () => {
   return (
       <Link href='/issues/new'>
         <Button>
-          Create Issue
+          Create New Issue
         </Button>
       </Link>
     )
