@@ -55,7 +55,7 @@ const NewIssuePage = () => {
       )}
       <form className="space-y-3" onSubmit={handleSubmit(onSubmit)}>
         <TextField.Root placeholder="Title" {...register("title")}>
-          <TextField.Slot></TextField.Slot>
+          <TextField.Slot ></TextField.Slot>
         </TextField.Root>
         <ErrorMessage>
             {errors.title?.message}
