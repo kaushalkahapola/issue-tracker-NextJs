@@ -1,5 +1,5 @@
 import { Button, Table } from "@radix-ui/themes";
-import Link from "next/link";
+import Link from "../components/Link";
 import React from "react";
 import axios from "axios";
 import { Status } from "@prisma/client";
