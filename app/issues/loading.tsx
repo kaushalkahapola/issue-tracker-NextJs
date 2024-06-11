@@ -1,32 +1,12 @@
-import { Button, Table } from "@radix-ui/themes";
-import Link from "next/link";
 import React from "react";
-import axios from "axios";
-import { Status } from "@prisma/client";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
+import { Table, Button } from "@radix-ui/themes";
 import IssueStatusBadge from "./IssueStatusBadge";
-import delay from "delay";
+import Link from "next/link";
 
-// Define the Issue interface
-interface Issue {
-  id: number;
-  title: string;
-  status: Status;
-  createdAt: Date;
-}
-
-// Server component to fetch and display issues
-const IssuePage = async () => {
-  let issues: Issue[] = [];
-  try {
-    const response = await axios.get("http://localhost:3000/api/issues");
-    issues = response.data.map((issue: any) => ({
-      ...issue,
-      createdAt: new Date(issue.createdAt),
-    }));
-  } catch (error) {
-    console.error(error);
-  }
-  await delay(2000);
+const IssueLoadingPage = () => {
+  const issues = [1, 2, 3, 4, 5, 6];
 
   return (
     <div className="max-w-3xl mx-auto">
@@ -51,18 +31,18 @@ const IssuePage = async () => {
 
           <Table.Body>
             {issues.map((issue) => (
-              <Table.Row key={issue.id}>
+              <Table.Row key={issue}>
                 <Table.RowHeaderCell>
-                  <Link href={`issues/${issue.id}`}>{issue.title}</Link>
-                  <div className="block md:hidden mt-2">
-                    <IssueStatusBadge status={issue.status} />
+                  <Skeleton />
+                  <div className="block md:hidden">
+                    <Skeleton />
                   </div>
                 </Table.RowHeaderCell>
                 <Table.Cell className="hidden md:table-cell">
-                  <IssueStatusBadge status={issue.status} />
+                  <Skeleton />{" "}
                 </Table.Cell>
                 <Table.Cell className="hidden md:table-cell">
-                  {issue.createdAt.toDateString()}
+                  <Skeleton />
                 </Table.Cell>
               </Table.Row>
             ))}
@@ -73,4 +53,4 @@ const IssuePage = async () => {
   );
 };
 
-export default IssuePage;
+export default IssueLoadingPage;
