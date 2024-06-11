@@ -3,6 +3,7 @@ import Link from "next/link";
 import React from "react";
 import axios from "axios";
 import { Status } from "@prisma/client";
+import IssueStatusBadge from "./IssueStatusBadge";
 
 // Define the Issue interface
 interface Issue {
@@ -26,7 +27,7 @@ const IssuePage = async () => {
   }
 
   return (
-    <div>
+    <div className="max-w-3xl mx-auto">
       <div className="mb-5">
         <Link href="/issues/new">
           <Button>Create New Issue</Button>
@@ -51,10 +52,12 @@ const IssuePage = async () => {
               <Table.Row key={issue.id}>
                 <Table.RowHeaderCell>
                   {issue.title}
-                  <div className="block md:hidden">{issue.status}</div>
+                  <div className="block md:hidden">
+                    <IssueStatusBadge status={issue.status} />
+                  </div>
                 </Table.RowHeaderCell>
                 <Table.Cell className="hidden md:table-cell">
-                  {issue.status}
+                  <IssueStatusBadge status={issue.status} />
                 </Table.Cell>
                 <Table.Cell className="hidden md:table-cell">
                   {issue.createdAt.toDateString()}
