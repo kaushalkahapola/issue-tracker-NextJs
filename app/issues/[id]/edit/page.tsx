@@ -31,7 +31,7 @@ const IssueEditPage = async ({ params }: { params: { id: string } }) => {
     ) => {
     try {
       setIsSubmitting(true);
-      await axios.put(`/api/issues/${id}`, data);
+      await axios.patch(`/api/issues/${id}`, data);
       router.push("/issues");
     } catch (error) {
       setIsSubmitting(false);
