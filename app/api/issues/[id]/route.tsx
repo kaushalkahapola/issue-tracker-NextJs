@@ -1,6 +1,6 @@
-import { NextRequest, NextResponse } from "next/server";
-import prisma from "@/prisma/client"; // Adjust the import based on your project structure
 import { issueSchema } from "@/app/validationSchema";
+import prisma from "@/prisma/client"; // Adjust the import based on your project structure
+import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(
   request: NextRequest,
@@ -69,6 +69,7 @@ export async function DELETE(
   { params }: { params: { id: string } }
 ) {
   const { id } = params;
+
 
   try {
     const checkIssue = await prisma.issue.findUnique({
