@@ -6,12 +6,18 @@ import axios from "axios";
 import "easymde/dist/easymde.min.css";
 import { useRouter } from "next/navigation";
 import { z } from "zod";
-import IssueForm from "../components/IssueForm";
+// import IssueForm from "../components/IssueForm";
+import dynamic from "next/dynamic";
 
+const IssueForm = dynamic(() => import('../components/IssueForm'), {
+
+  ssr: false
+
+});
 
 type Issue = z.infer<typeof issueSchema>;
 
-const NewIssuePage = async () => {
+const NewIssuePage = () => {
   const router = useRouter();
 
 
@@ -24,6 +30,7 @@ const NewIssuePage = async () => {
       setIsSubmitting(true);
       await axios.post("/api/issues", data);
       router.push("/issues");
+      router.refresh();
     } catch (error) {
       setIsSubmitting(false);
       setError("An error occurred while creating the issue. Please try again.");

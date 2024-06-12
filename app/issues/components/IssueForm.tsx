@@ -1,3 +1,5 @@
+'use client'
+
 import ErrorMessage from "@/app/components/ErrorMessage"
 import { issueSchema } from "@/app/validationSchema"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -6,6 +8,7 @@ import { Button, Callout, Spinner, TextField } from "@radix-ui/themes"
 import { useState } from "react"
 import { Controller, useForm } from "react-hook-form"
 import SimpleMDE from "react-simplemde-editor"
+import "easymde/dist/easymde.min.css";
 import { z } from "zod"
 
 
@@ -58,9 +61,9 @@ const IssueForm = ( {onSubmit, issue} : Props ) => {
         <Controller
           name="description"
           control={control}
-          defaultValue={issue?.description}
+          defaultValue={issue?.description ?? ''}
           render={({ field }) => (
-            <SimpleMDE placeholder="Description"{...field} />
+            <SimpleMDE placeholder="Description"  value={field.value} onChange={(value) => field.onChange(value)} />
           )}
         />
         <ErrorMessage>
