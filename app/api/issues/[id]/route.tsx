@@ -62,3 +62,33 @@ export async function PATCH(
     );
   }
 }
+
+
+export async function DELETE(
+  request: NextRequest,
+  { params }: { params: { id: string } }
+) {
+  const { id } = params;
+
+  try {
+    const checkIssue = await prisma.issue.findUnique({
+      where: { id: String(id) },
+    });
+
+    if (!checkIssue) {
+      return NextResponse.json({ error: "Issue not found" }, { status: 404 });
+    }
+
+    await prisma.issue.delete({
+      where: { id: String(id) },
+    });
+
+    return NextResponse.json({ message: "Issue deleted" });
+  } catch (error) {
+    console.error("Error deleting issue:", error);
+    return NextResponse.json(
+      { error: "Internal Server Error" },
+      { status: 500 }
+    );
+  }
+}

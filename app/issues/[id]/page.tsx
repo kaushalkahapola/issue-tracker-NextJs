@@ -1,9 +1,10 @@
 import { Status } from "@prisma/client";
-import { Box, Grid } from "@radix-ui/themes";
+import { Box, Flex, Grid } from "@radix-ui/themes";
 import axios from "axios";
 import { notFound } from "next/navigation";
 import EditIssueButton from "./EditIssueButton";
 import IssueDetails from "./IssueDetails";
+import DeleteIssueButton from "./DeleteIssueButton";
 
 // Define the Issue interface
 interface Issue {
@@ -33,25 +34,21 @@ const IssueDetailPage = async ({ params }: { params: { id: string } }) => {
 
   return (
     <div>
-      {/* <div>
-        <Link href="/issues/new">
-          <Button>Create New Issue</Button>
-        </Link>
-      </div> */}
-      <div>
-        {issue ? (
-          <Grid columns={{initial:"1", md:"2"}} gap="5">
-            <Box>
-              <IssueDetails issue={issue} />
-            </Box>
-            <Box>
+      {issue ? (
+        <Grid columns={{ initial: "1", sm: "5" }} gap="5">
+          <Box gridColumn={{sm:'span 4'}}>
+            <IssueDetails issue={issue} />
+          </Box>
+          <Box>
+            <Flex direction="column" gap="3">
               <EditIssueButton id={issue.id} />
-            </Box>
-          </Grid>
-        ) : (
-          <p>Issue not found.</p>
-        )}
-      </div>
+              <DeleteIssueButton id={issue.id} />
+            </Flex>
+          </Box>
+        </Grid>
+      ) : (
+        <p>Issue not found.</p>
+      )}
     </div>
   );
 };

@@ -4,12 +4,12 @@ import Link from "next/link";
 
 const EditIssueButton = ({ id }: { id: string }) => {
   return (
-    <Link href={`/issues/${id}/edit`}>
-      <Button>
+    <Button>
         <Pencil2Icon />
-        Edit Issue
-      </Button>
-    </Link>
+      <Link href={`/issues/${id}/edit`}>
+        <div>Edit Issue</div>
+      </Link>
+    </Button>
   );
 };
 
