@@ -5,7 +5,7 @@ import { IoIosBug } from "react-icons/io";
 import { usePathname } from "next/navigation";
 import classNames from "classnames";
 import { auth } from "../auth";
-import { Box, Container, Flex } from "@radix-ui/themes";
+import { Avatar, Box, Button, Container, DropdownMenu, Flex , Text} from "@radix-ui/themes";
 import { SignIn } from "./components/Sign-in-button";
 import { SignOut } from "./components/Sign-out-button";
 import { Session } from "next-auth";
@@ -13,7 +13,7 @@ import { useSession } from "next-auth/react";
 
 const NavBar = () => {
   const pathname = usePathname();
-  const { status, data: Session } = useSession();
+  const { status, data: session } = useSession();
 
   const links = [
     {
@@ -25,6 +25,8 @@ const NavBar = () => {
       path: "/issues",
     },
   ];
+
+  console.log(session?.user?.image);
 
   return (
     <nav className="border-b mb-6">
@@ -54,7 +56,24 @@ const NavBar = () => {
           </Flex>
           <Flex>
             <Box>
-              {status == "authenticated" && <SignOut />}
+               {status == "authenticated" && 
+               <Flex gap='3' align='center'>
+                  <Text size='2' weight='medium'>{`Hi! ${session?.user?.name![0].toUpperCase()}${session?.user?.name!.slice(1)}`}</Text>
+                  <DropdownMenu.Root>
+                  <DropdownMenu.Trigger>
+                    <Avatar src={session?.user?.image!} fallback={'?'} size='2' radius="full" className="cursor-pointer" />
+                  </DropdownMenu.Trigger>
+                  <DropdownMenu.Content>
+                    <DropdownMenu.Label>
+                      <Text size='2' >{session?.user?.email}</Text>
+                    </DropdownMenu.Label>
+                    <DropdownMenu.Item>
+                      <SignOut size='1'/>
+                    </DropdownMenu.Item>
+                  </DropdownMenu.Content>
+                </DropdownMenu.Root>
+                </Flex>
+              }
               {status == "unauthenticated" && <SignIn />}
             </Box>
           </Flex>
