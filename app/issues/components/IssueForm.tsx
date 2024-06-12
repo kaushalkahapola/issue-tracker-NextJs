@@ -17,9 +17,10 @@ interface Props {
         setIsSubmitting: React.Dispatch<React.SetStateAction<boolean>>,
         setError: React.Dispatch<React.SetStateAction<string>>
       ) => Promise<void>;
+    issue? : Issue | null;
 }
 
-const IssueForm = ( {onSubmit} : Props ) => {
+const IssueForm = ( {onSubmit, issue} : Props ) => {
 
     const {
         register,
@@ -48,7 +49,7 @@ const IssueForm = ( {onSubmit} : Props ) => {
         </Callout.Root>
       )}
     <form className="space-y-3" onSubmit={handleSubmit(submitFunc)}>
-        <TextField.Root placeholder="Title" {...register("title")}>
+        <TextField.Root defaultValue={issue?.title} placeholder="Title" {...register("title")}>
           <TextField.Slot ></TextField.Slot>
         </TextField.Root>
         <ErrorMessage>
@@ -57,14 +58,15 @@ const IssueForm = ( {onSubmit} : Props ) => {
         <Controller
           name="description"
           control={control}
+          defaultValue={issue?.description}
           render={({ field }) => (
-            <SimpleMDE placeholder="Description" {...field} />
+            <SimpleMDE placeholder="Description"{...field} />
           )}
         />
         <ErrorMessage>
             {errors.description?.message}
         </ErrorMessage>
-        <Button disabled={isSubmitting}>Submit new issue {isSubmitting && <Spinner/>}</Button>
+        <Button disabled={isSubmitting}>{issue ? 'Update issue' : 'Submit new issue' }{isSubmitting && <Spinner/>}</Button>
       </form>
       </>
   )
