@@ -2,7 +2,7 @@ import React from "react";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { Table, Button } from "@radix-ui/themes";
-import IssueStatusBadge from "./IssueStatusBadge";
+import IssueStatusBadge from "./components/IssueStatusBadge";
 import Link from "next/link";
 
 const IssueLoadingPage = () => {

@@ -2,7 +2,7 @@ import { Status } from "@prisma/client";
 import { Button, Table } from "@radix-ui/themes";
 import axios from "axios";
 import Link from "../components/Link";
-import IssueStatusBadge from "./IssueStatusBadge";
+import IssueStatusBadge from "./components/IssueStatusBadge";
 
 // Define the Issue interface
 interface Issue {

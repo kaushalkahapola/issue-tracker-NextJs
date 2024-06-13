@@ -5,6 +5,8 @@ import { notFound } from "next/navigation";
 import EditIssueButton from "./EditIssueButton";
 import IssueDetails from "./IssueDetails";
 import DeleteIssueButton from "./DeleteIssueButton";
+import {auth} from "@/auth"
+
 
 // Define the Issue interface
 interface Issue {
@@ -17,6 +19,7 @@ interface Issue {
 }
 // Server component to fetch and display issues
 const IssueDetailPage = async ({ params }: { params: { id: string } }) => {
+  const session = await auth()
   const { id } = params;
   let issue: Issue | null = null;
   try {
@@ -39,12 +42,12 @@ const IssueDetailPage = async ({ params }: { params: { id: string } }) => {
           <Box gridColumn={{sm:'span 4'}}>
             <IssueDetails issue={issue} />
           </Box>
-          <Box>
+          {session && session.user && <Box>
             <Flex direction="column" gap="3">
               <EditIssueButton id={issue.id} />
               <DeleteIssueButton id={issue.id} />
             </Flex>
-          </Box>
+          </Box>}
         </Grid>
       ) : (
         <p>Issue not found.</p>

@@ -1,6 +1,7 @@
 import { issueSchema } from "@/app/validationSchema";
 import prisma from "@/prisma/client"; // Adjust the import based on your project structure
 import { NextRequest, NextResponse } from "next/server";
+import { auth } from "@/auth";
 
 export async function GET(
   request: NextRequest,
@@ -31,6 +32,10 @@ export async function PATCH(
   request: NextRequest,
   { params }: { params: { id: string } }
 ) {
+  const session = await auth();
+  if (!session) {
+    return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+  }
   const { id } = params;
   const body = await request.json();
 
@@ -68,6 +73,10 @@ export async function DELETE(
   request: NextRequest,
   { params }: { params: { id: string } }
 ) {
+  const session = await auth();
+  if (!session) {
+    return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+  }
   const { id } = params;
 
 
