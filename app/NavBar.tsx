@@ -29,8 +29,8 @@ const NavBar = () => {
   console.log(session?.user?.image);
 
   return (
-    <nav className="border-b mb-6">
-      <Container>
+    <nav className="border-b mb-6 px-5">
+      <Container >
         <Flex align='center' py='3' justify='between'>
           <Flex gap='3' align='center'>
             <Link href="/">

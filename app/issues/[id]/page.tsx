@@ -6,6 +6,7 @@ import EditIssueButton from "./EditIssueButton";
 import IssueDetails from "./IssueDetails";
 import DeleteIssueButton from "./DeleteIssueButton";
 import {auth} from "@/auth"
+import AssigneeSelect from "../components/AssigneeSelect";
 
 
 // Define the Issue interface
@@ -44,6 +45,7 @@ const IssueDetailPage = async ({ params }: { params: { id: string } }) => {
           </Box>
           {session && session.user && <Box>
             <Flex direction="column" gap="3">
+            <AssigneeSelect />
               <EditIssueButton id={issue.id} />
               <DeleteIssueButton id={issue.id} />
             </Flex>
