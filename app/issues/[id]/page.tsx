@@ -1,4 +1,4 @@
-import { Status } from "@prisma/client";
+import { Status, User } from "@prisma/client";
 import { Box, Flex, Grid } from "@radix-ui/themes";
 import axios from "axios";
 import { notFound } from "next/navigation";
@@ -20,6 +20,7 @@ interface Issue {
 }
 // Server component to fetch and display issues
 const IssueDetailPage = async ({ params }: { params: { id: string } }) => {
+
   const session = await auth()
   const { id } = params;
   let issue: Issue | null = null;
