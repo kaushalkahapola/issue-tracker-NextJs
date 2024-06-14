@@ -3,7 +3,6 @@
 import { Select } from '@radix-ui/themes'
 import axios from 'axios';
 import { User } from '@prisma/client';
-import React, { useEffect, useState } from 'react'
 import { useQuery } from '@tanstack/react-query';
 import Skeleton from 'react-loading-skeleton';
 
