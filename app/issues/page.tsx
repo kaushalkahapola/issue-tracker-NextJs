@@ -1,8 +1,9 @@
 import { Status } from "@prisma/client";
-import { Button, Table } from "@radix-ui/themes";
+import { Button, Flex, Table } from "@radix-ui/themes";
 import axios from "axios";
 import Link from "../components/Link";
 import IssueStatusBadge from "./components/IssueStatusBadge";
+import IssueStatusFilter from "./components/IssueStatusFilter";
 
 // Define the Issue interface
 interface Issue {
@@ -13,10 +14,13 @@ interface Issue {
 }
 
 // Server component to fetch and display issues
-const IssuePage = async () => {
+const IssuePage = async ({searchParams}:{searchParams: {status: Status}}) => {
+  
+  const status = searchParams.status;
+
   let issues: Issue[] = [];
   try {
-    const response = await axios.get("http://localhost:3000/api/issues");
+    const response = await axios.get('http://localhost:3000/api/issues', status ? {params: {status}} : {});
     issues = response.data.map((issue: any) => ({
       ...issue,
       createdAt: new Date(issue.createdAt),
@@ -27,11 +31,12 @@ const IssuePage = async () => {
 
   return (
     <div className="max-w-3xl mx-auto">
-      <div className="mb-5">
+      <Flex mb='5' justify='between'>
+      <IssueStatusFilter/>
         <Link href="/issues/new">
           <Button>Create New Issue</Button>
         </Link>
-      </div>
+      </Flex>
       <div>
         <Table.Root variant="surface">
           <Table.Header>
