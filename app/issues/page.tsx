@@ -4,6 +4,8 @@ import axios from "axios";
 import Link from "../components/Link";
 import IssueStatusBadge from "./components/IssueStatusBadge";
 import IssueStatusFilter from "./components/IssueStatusFilter";
+import NextLink from "next/link";
+import { ArrowUpIcon } from "@radix-ui/react-icons";
 
 // Define the Issue interface
 interface Issue {
@@ -13,8 +15,15 @@ interface Issue {
   createdAt: Date;
 }
 
+const columns: {Header: string, accessor: keyof Issue, className? : string}[] = [
+  { Header: 'Issue', accessor: 'title' },
+  { Header: 'Status', accessor: 'status', className:"hidden md:table-cell" },
+  { Header: 'Created at', accessor: 'createdAt', className:"hidden md:table-cell" },
+]
+
+
 // Server component to fetch and display issues
-const IssuePage = async ({searchParams}:{searchParams: {status: Status}}) => {
+const IssuePage = async ({searchParams}:{searchParams: {status: Status, orderBy: keyof Issue}}) => {
   
   const status = searchParams.status;
 
@@ -41,13 +50,19 @@ const IssuePage = async ({searchParams}:{searchParams: {status: Status}}) => {
         <Table.Root variant="surface">
           <Table.Header>
             <Table.Row>
-              <Table.ColumnHeaderCell>Issue</Table.ColumnHeaderCell>
-              <Table.ColumnHeaderCell className="hidden md:table-cell">
-                Status
-              </Table.ColumnHeaderCell>
-              <Table.ColumnHeaderCell className="hidden md:table-cell">
-                Created at
-              </Table.ColumnHeaderCell>
+              {columns.map((column) => (
+                <Table.ColumnHeaderCell key={column.Header} className={column.className}>
+                  <NextLink href={
+                    {
+                      query:{
+                        ...searchParams, orderBy: column.accessor
+                      }
+                    }
+                  }>{column.Header}</NextLink>
+                  {column.accessor === searchParams.orderBy && <ArrowUpIcon className="inline"/>}
+                </Table.ColumnHeaderCell>
+              ))  
+              }
             </Table.Row>
           </Table.Header>
 
