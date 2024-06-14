@@ -69,4 +69,5 @@ export async function generateMetadata ({ params }: { params: { id: string } }){
     description: 'Details of issue' + issue?.title
   }
 }
+
 export default IssueDetailPage;

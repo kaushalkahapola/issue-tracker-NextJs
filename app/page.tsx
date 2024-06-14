@@ -23,6 +23,6 @@ export default async function Home() {
 
 
 export const metadata : Metadata = {
-  title: "Dashboard",
+  title: "Dashboard | Issue Tracker",
   description: "View summary of issues and latest issues",
 }
