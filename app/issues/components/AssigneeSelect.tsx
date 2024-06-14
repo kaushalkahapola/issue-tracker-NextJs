@@ -19,6 +19,8 @@ const AssigneeSelect = () => {
 
   if(error) return null
 
+  console.log(users && users[0]?.id)
+
   return (
     <Select.Root>
         <Select.Trigger placeholder='Assign to' / >

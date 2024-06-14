@@ -1,4 +1,4 @@
-import { issueSchema } from "@/app/validationSchema";
+import { PatchIssueSchema } from "@/app/validationSchema";
 import prisma from "@/prisma/client"; // Adjust the import based on your project structure
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/auth";
@@ -48,14 +48,33 @@ export async function PATCH(
       return NextResponse.json({ error: "Issue not found" }, { status: 404 });
     }
 
-    const validation = issueSchema.safeParse(body);
+    const validation = PatchIssueSchema.safeParse(body);
     if (!validation.success) {
-      return NextResponse.json(validation.error.errors, { status: 400 });
+      return NextResponse.json(validation.error.format(), { status: 400 });
+    }
+
+    const { title, description, assignedUserId } = validation.data;
+
+    if (assignedUserId) {
+      const checkUser = await prisma.user.findUnique({
+        where: { id: assignedUserId },
+      });
+
+      if (!checkUser) {
+        return NextResponse.json(
+          { error: "Assigned user not found" },
+          { status: 404 }
+        );
+      }
     }
 
     const updatedIssue = await prisma.issue.update({
       where: { id: String(id) },
-      data: body,
+      data: {
+        title,
+        description,
+        assignedUserId,
+      },
     });
 
     return NextResponse.json(updatedIssue);
@@ -68,7 +87,6 @@ export async function PATCH(
   }
 }
 
-
 export async function DELETE(
   request: NextRequest,
   { params }: { params: { id: string } }
@@ -78,7 +96,6 @@ export async function DELETE(
     return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
   }
   const { id } = params;
-
 
   try {
     const checkIssue = await prisma.issue.findUnique({
