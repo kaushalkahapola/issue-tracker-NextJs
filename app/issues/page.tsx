@@ -106,7 +106,7 @@ const IssuePage = async ({searchParams}:{searchParams: {status: Status, orderBy:
 export const dynamic = 'force-dynamic'
 
 export const metadata : Metadata = {
-  title: "Issue Tracker - Issues List",
+  title: "Issues List",
   description: "View all issues",
 }
 
