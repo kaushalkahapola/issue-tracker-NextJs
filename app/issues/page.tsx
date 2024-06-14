@@ -35,7 +35,7 @@ const IssuePage = async ({searchParams}:{searchParams: {status: Status, orderBy:
   let issueCount;
   let pageSize;
   try {
-    const response = await axios.get('http://localhost:3000/api/issues', { params: { status, orderBy, page } });
+    const response = await axios.get('/api/issues', { params: { status, orderBy, page } });
     issues = response.data.issues.map((issue: any) => ({
       ...issue,
       createdAt: new Date(issue.createdAt),

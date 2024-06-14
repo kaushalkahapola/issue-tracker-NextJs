@@ -28,7 +28,7 @@ const IssueDetailPage = async ({ params }: { params: { id: string } }) => {
   const { id } = params;
   let issue: Issue | null = null;
   try {
-    const response = await axios.get(`http://localhost:3000/api/issues/${id}`);
+    const response = await axios.get(`/api/issues/${id}`);
     const data = response.data;
     issue = {
       ...data,
