@@ -26,7 +26,6 @@ const NavBar = () => {
     },
   ];
 
-  console.log(session?.user?.image);
 
   return (
     <nav className="border-b mb-6 px-5">
