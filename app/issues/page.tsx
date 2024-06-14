@@ -6,6 +6,7 @@ import IssueStatusBadge from "./components/IssueStatusBadge";
 import IssueStatusFilter from "./components/IssueStatusFilter";
 import NextLink from "next/link";
 import { ArrowUpIcon } from "@radix-ui/react-icons";
+import Pagination from "../components/Pagination";
 
 // Define the Issue interface
 interface Issue {
@@ -23,31 +24,36 @@ const columns: {Header: string, accessor: keyof Issue, className? : string}[] = 
 
 
 // Server component to fetch and display issues
-const IssuePage = async ({searchParams}:{searchParams: {status: Status, orderBy: keyof Issue}}) => {
+const IssuePage = async ({searchParams}:{searchParams: {status: Status, orderBy: keyof Issue, page: string }}) => {
   
   const status = searchParams.status;
   const orderBy = searchParams.orderBy;
+  const page = searchParams.page || '1';
 
   let issues: Issue[] = [];
+  let issueCount;
+  let pageSize;
   try {
-    const response = await axios.get('http://localhost:3000/api/issues', { params: { status, orderBy } });
-    issues = response.data.map((issue: any) => ({
+    const response = await axios.get('http://localhost:3000/api/issues', { params: { status, orderBy, page } });
+    issues = response.data.issues.map((issue: any) => ({
       ...issue,
       createdAt: new Date(issue.createdAt),
     }));
+    issueCount = response.data.count;
+    pageSize = response.data.pageSize;
   } catch (error) {
     console.error(error);
   }
 
   return (
-    <div className="max-w-3xl mx-auto">
-      <Flex mb='5' justify='between'>
+    <div className="max-w-3xl mx-auto space-y-3">
+      <Flex justify='between'>
       <IssueStatusFilter/>
         <Link href="/issues/new">
           <Button>Create New Issue</Button>
         </Link>
       </Flex>
-      <div>
+      <div className="space-y-3">
         <Table.Root variant="surface">
           <Table.Header>
             <Table.Row>
@@ -86,6 +92,11 @@ const IssuePage = async ({searchParams}:{searchParams: {status: Status, orderBy:
             ))}
           </Table.Body>
         </Table.Root>
+        <Pagination
+          itemCount={issueCount}
+          PageSize={pageSize}
+          CurrentPage = {parseInt(page)}
+        />
       </div>
     </div>
   );

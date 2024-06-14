@@ -32,8 +32,8 @@ export async function GET(req : NextRequest){
   const status = statuses.includes(searchParams.get('status') as Status) ? searchParams.get('status') as Status : undefined;
   const columns = ['title', 'status', 'createdAt']
   const orderBy = columns.includes(searchParams.get('orderBy') as string) ? searchParams.get('orderBy') as keyof Issue : 'createdAt';
-  console.log(status);
-  
+  const page = parseInt(searchParams.get('page') || '1');
+  const pageSize = 10;
   const issues = await prisma.issue.findMany(
     {
       where: {
@@ -41,8 +41,17 @@ export async function GET(req : NextRequest){
       },
       orderBy: {
         [orderBy]: 'asc'
-      }
+      },
+      skip: (page - 1) * 10,
+      take: pageSize
     }
   );
-  return NextResponse.json(issues);
+
+  const issueCount = await prisma.issue.count({
+    where: {
+      status: status
+    }
+  });
+
+  return NextResponse.json({"issues": issues, "count" :issueCount, "pageSize": pageSize, "page": page});
 }

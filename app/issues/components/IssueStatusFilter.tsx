@@ -18,16 +18,16 @@ const IssueStatusFilter = () => {
 
     // check for already existing orderBy params in url
      const searchParams = useSearchParams()
-     const orderBy = searchParams.get('orderBy')
+     
 
   return (
     <Select.Root 
         onValueChange={(value) =>
          {
             const status = value === '0' ? undefined : value
-            let query = status ? '?status=' + status : ''
-            orderBy && (query ? (query += '&orderBy=' + orderBy) : (query = '?orderBy=' + orderBy))
-            router.push('/issues' + query)
+            const params = new URLSearchParams(searchParams);
+            status && params.set("status", status);
+            router.push("?" + params.toString());  
     }
 }>
         <Select.Trigger placeholder="Filter by status"/>
