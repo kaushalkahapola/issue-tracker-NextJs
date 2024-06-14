@@ -17,6 +17,7 @@ interface Issue {
   createdAt: Date;
   updatedAt: Date;
   description: string;
+  assignedUserId: string | null;
 }
 // Server component to fetch and display issues
 const IssueDetailPage = async ({ params }: { params: { id: string } }) => {
@@ -46,7 +47,7 @@ const IssueDetailPage = async ({ params }: { params: { id: string } }) => {
           </Box>
           {session && session.user && <Box>
             <Flex direction="column" gap="3">
-            <AssigneeSelect />
+            <AssigneeSelect issue={issue} />
               <EditIssueButton id={issue.id} />
               <DeleteIssueButton id={issue.id} />
             </Flex>
