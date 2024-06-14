@@ -7,6 +7,7 @@ import IssueStatusFilter from "./components/IssueStatusFilter";
 import NextLink from "next/link";
 import { ArrowUpIcon } from "@radix-ui/react-icons";
 import Pagination from "../components/Pagination";
+import { Metadata } from "next";
 
 // Define the Issue interface
 interface Issue {
@@ -103,5 +104,10 @@ const IssuePage = async ({searchParams}:{searchParams: {status: Status, orderBy:
 };
 
 export const dynamic = 'force-dynamic'
+
+export const metadata : Metadata = {
+  title: "Issue Tracker - Issues List",
+  description: "View all issues",
+}
 
 export default IssuePage;

@@ -7,6 +7,8 @@ import IssueDetails from "./IssueDetails";
 import DeleteIssueButton from "./DeleteIssueButton";
 import {auth} from "@/auth"
 import AssigneeSelect from "../components/AssigneeSelect";
+import { Metadata } from "next";
+import prisma from "@/prisma/client";
 
 
 // Define the Issue interface
@@ -60,4 +62,11 @@ const IssueDetailPage = async ({ params }: { params: { id: string } }) => {
   );
 };
 
+export async function generateMetadata ({ params }: { params: { id: string } }){
+  const issue = await prisma.issue.findUnique({ where: { id: params.id }})
+  return {
+    title: issue?.title,
+    description: 'Details of issue' + issue?.title
+  }
+}
 export default IssueDetailPage;

@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import { z } from "zod";
 // import IssueForm from "../components/IssueForm";
 import dynamic from "next/dynamic";
+import Head from 'next/head';
 
 const IssueForm = dynamic(() => import('../components/IssueForm'), {
 
@@ -38,11 +39,18 @@ const NewIssuePage = () => {
   };
 
   return (
+    <>
+    <Head>
+        <title>Create New Issue</title>
+        <meta name="description" content='Create a New issue' />
+      </Head>
     <div className="max-w-xl mx-auto">
       <Heading as="h1" size="7" className="text-zinc-700 mb-5">Create a New Issue</Heading>
       <IssueForm onSubmit={onSubmit} />
     </div>
+    </>
   );
 };
+
 
 export default NewIssuePage;
