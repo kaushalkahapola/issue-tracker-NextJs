@@ -26,10 +26,11 @@ const columns: {Header: string, accessor: keyof Issue, className? : string}[] = 
 const IssuePage = async ({searchParams}:{searchParams: {status: Status, orderBy: keyof Issue}}) => {
   
   const status = searchParams.status;
+  const orderBy = searchParams.orderBy;
 
   let issues: Issue[] = [];
   try {
-    const response = await axios.get('http://localhost:3000/api/issues', status ? {params: {status}} : {});
+    const response = await axios.get('http://localhost:3000/api/issues', { params: { status, orderBy } });
     issues = response.data.map((issue: any) => ({
       ...issue,
       createdAt: new Date(issue.createdAt),
