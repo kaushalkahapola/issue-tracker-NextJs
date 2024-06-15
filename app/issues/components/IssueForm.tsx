@@ -61,9 +61,9 @@ const IssueForm = ( {onSubmit, issue} : Props ) => {
         <Controller
           name="description"
           control={control}
-          defaultValue={issue?.description ?? ''}
+          // defaultValue={issue?.description ?? ''}
           render={({ field }) => (
-            <SimpleMDE placeholder="Description"  value={field.value} onChange={(value) => field.onChange(value)} />
+            <SimpleMDE placeholder="Description"  value={issue?.description} onChange={(value) => field.onChange(value)} />
           )}
         />
         <ErrorMessage>

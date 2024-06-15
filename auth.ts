@@ -5,7 +5,7 @@ import { PrismaAdapter } from "@auth/prisma-adapter"
 import prisma from "@/prisma/client"
 
 
-const issuesPattern = new RegExp('^/issues(/new|/[a-zA-Z0-9-]+/edit)?$');
+const issuesPattern = new RegExp('^/issues(/new|/[a-zA-Z0-9-]+/edit)$');
 
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
