@@ -2,7 +2,7 @@ import React from "react";
 import { Badge } from "@radix-ui/themes";
 import { Status } from "@prisma/client";
 
-const IssueStatusBadge = ({ status }: { status: Status }) => {
+const IssueStatusBadge = ({ status }: { status: Status | undefined }) => {
   return(
       <div>
         {status == "OPEN" && <Badge variant="surface" color="red">Open</Badge>}

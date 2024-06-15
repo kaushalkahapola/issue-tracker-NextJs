@@ -8,7 +8,6 @@ import "easymde/dist/easymde.min.css";
 import { notFound, useRouter } from "next/navigation";
 import { z } from "zod";
 import dynamic from "next/dynamic";
-import prisma from "@/prisma/client";
 
 const IssueForm = dynamic(() => import('../../components/IssueForm'), {
 
