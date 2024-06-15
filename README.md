@@ -1,8 +1,66 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Issue Tracker App
+
+This is a professional issue tracking application built using [Next.js](https://nextjs.org/) and deployed on [Vercel](https://vercel.com/). The app features a comprehensive dashboard that displays issue counts with numbers and graphs, along with the latest issues. Users can perform CRUD operations on issues, which can have one of three states: OPEN, IN_PROGRESS, and DONE. Additionally, issues can be assigned to different users.
+
+## Features
+
+- **Dashboard**: View issue counts with visual graphs and the latest issues.
+- **CRUD Operations**: Create, read, update, and delete issues.
+- **Issue States**: Manage issues with three states - OPEN, IN_PROGRESS, DONE.
+- **User Assignment**: Assign issues to different users.
+
+## Technologies Used
+
+- **Framework**: [Next.js](https://nextjs.org/)
+- **Database**: [PostgreSQL](https://www.postgresql.org/)
+- **ORM**: [Prisma](https://www.prisma.io/)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
+- **UI Components**: [Radix UI](https://www.radix-ui.com/)
 
 ## Getting Started
 
-First, run the development server:
+To get a local copy of the project up and running, follow these steps:
+
+### Prerequisites
+
+Ensure you have the following installed:
+
+- [Node.js](https://nodejs.org/en/)
+- [PostgreSQL](https://www.postgresql.org/)
+- [Prisma CLI](https://www.prisma.io/docs/getting-started)
+
+### Installation
+
+1. **Clone the repository**:
+    ```bash
+    git clone https://github.com/kaushalkahapola/issue-tracker-NextJs.git
+    cd issue-tracker-NextJs
+    ```
+
+2. **Install dependencies**:
+    ```bash
+    npm install
+    # or
+    yarn install
+    # or
+    pnpm install
+    ```
+
+3. **Create a `.env` file with your own data**:
+
+    In the root of your project, create a file named `.env` and add your database connection string and any other necessary environment variables:
+    ```env
+    DATABASE_URL="postgresql://user:password@localhost:5432/mydb"
+    ```
+
+4. **Run Prisma migrations**:
+    ```bash
+    npx prisma migrate dev
+    ```
+
+### Running the Development Server
+
+To start the development server, run:
 
 ```bash
 npm run dev
@@ -10,27 +68,19 @@ npm run dev
 yarn dev
 # or
 pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Editing the Project
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+You can start editing the application by modifying the `app/page.tsx` file. The page auto-updates as you edit the file.
 
 ## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+To learn more about Next.js and the technologies used in this project, refer to the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- [Next.js Documentation](https://nextjs.org/docs) - Learn about Next.js features and API.
+- [Prisma Documentation](https://www.prisma.io/docs) - Learn how to use Prisma with your database.
+- [Tailwind CSS Documentation](https://tailwindcss.com/docs) - Learn how to style your application using Tailwind CSS.
+- [Radix UI Documentation](https://www.radix-ui.com/docs) - Learn about Radix UI components.
